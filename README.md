@@ -1,8 +1,8 @@
 # WifiPlug Ruby Wrapper
 
-A JRuby wrapper for the [WifiPlug](http://www.wifiplug.co.uk) API. The WifiPlug is a little device that you plug other appliances into to control their power status remotely. **Definitely not finished, this is simply my way of documenting to myself (and others) how their API works.** This knowledge will hopefully make their product more attractive to customers so they don't get angry at me for reverse-engineering things.
+A JRuby wrapper for the [WifiPlug](http://www.wifiplug.co.uk) API. The WifiPlug is a little device that you plug other appliances into to control their power status remotely. **Definitely not finished, this is simply my way of documenting to myself (and others) how their API works, because they certainly don't.** This knowledge will hopefully make their product more attractive to customers so they don't get angry at me for reverse-engineering things.
 
-This is the API I wish they distributed with the product. The WiFi Plug actually works pretty well, I just wish it was easier to work with. This is a high level wrapper, it's possible to go much lower, throwing around JSON payloads and whatever at the socket level.
+This is closer to the API I wish they distributed with the product. The WiFi Plug actually works pretty well, I just wish it was easier to work with. This is a high level wrapper, it's possible to go much lower, throwing around JSON payloads and whatever at the socket level.
 
 ## Notes
 
@@ -26,3 +26,9 @@ In order to get this working, I had to spend a whole day investigating what the 
   * Did a TCP dump from my iPhone while running their branded app, filtered for ports 225 & 227 to find IP address of wifiplug.co.uk's device configuration servers -- NOTHING was even hinted at about this in their minimal API docs
   * Surprise, this new server followed the same protocol, and my user existed
     * Could now freely send and receive commands from their server
+
+After a full day's probing and hacking and exploring, I can now successfully turn my desk fan on and off from the command line. Which is a success.
+
+## Examples
+
+1. `ruby examples/power_on_power_off.rb <device id> <0|1>` to simply power on (1) or off (0) a device with the given ID (I'm pretty sure device IDs are the device's MAC addresses). Don't forget to set your credentials in `examples/power_on_power_off.rb`
