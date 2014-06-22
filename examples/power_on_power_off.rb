@@ -24,6 +24,7 @@ import 'com.cdy.protocol.cmd.client.CMDFC_IdleSucc'
 import 'com.cdy.protocol.cmd.server.CMD01_ServerLoginPermit'
 import 'com.cdy.protocol.cmd.server.CMD03_ServerLoginRespond'
 import 'com.cdy.protocol.cmd.server.CMD05_ServerRespondAllDeviceList'
+import 'com.cdy.protocol.cmd.server.CMD09_ServerControlResult'
 import 'com.cdy.protocol.cmd.server.CMD52_ServerJump'
 import 'com.cdy.protocol.cmd.server.CMDFB_ServerIdle'
 import 'com.cdy.protocol.cmd.server.CMDFF_ServerException'
@@ -38,15 +39,26 @@ require 'lib/device_api_listener'
 require 'lib/write_thread'
 
 service = ObscureChineseWifiDeviceService.new("wifino1.com", 227)
-service.connect("zcc", "123")
+service.connect("zzc", "123")
 
 service.received_devices do |service|
   device_id, power = ARGV
+  changed = false
+
+  power = 1 if power == 'on'
+  power = 0 if power == 'off'
 
   service.devices.each do |device|
     if device.id == device_id
       device.power.get(0).on = power.to_i >= 1
       service.write_thread.send_cmd CMD08_ControlDevice.new(device)
+      changed = true
     end
   end
+
+  System.exit(0) if !changed
+end
+
+service.device_state_changed do |service|
+  System.exit(0)
 end

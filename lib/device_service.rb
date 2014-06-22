@@ -37,7 +37,7 @@ class ObscureChineseWifiDeviceService
   #      puts "Yay we got in"
   #    end
   #
-  %w(auth_successful received_devices server_idle).each do |cb|
+  %w(auth_successful received_devices device_state_changed server_idle).each do |cb|
     define_method(cb) { |&blk| @callbacks[cb.to_sym] = blk }
   end
 

@@ -29,6 +29,10 @@ class DeviceAPIListener
       end
       service.callback(:received_devices, cmd)
 
+    # CMD09: Device control status successfully changed
+    when CMD09_ServerControlResult::Command
+      service.callback(:device_state_changed, cmd)
+
     # CMDFB: "Are you still there?"
     when CMDFB_ServerIdle::Command
       service.write_thread.send_cmd CMDFC_IdleSucc.new
