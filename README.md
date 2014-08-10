@@ -24,6 +24,7 @@ In order to get this working, I had to spend a whole day investigating what the 
   * I guess wifiplug.co.uk have their own servers? Because I can log in on their own app fine
     * Is wifiplug.co.uk's product is simply a rebranded white-label wifi-enabled smart socket from China? Certainly seems that way
   * Did a TCP dump from my iPhone while running their branded app, filtered for ports 225 & 227 to find IP address of wifiplug.co.uk's device configuration servers -- NOTHING was even hinted at about this in their minimal API docs
+  * IP address of this wifiplug.co.uk-specific server is/was 54.217.214.117. Not sure if we should be using this IP or some specific domain
   * Surprise, this new server followed the same protocol, and my user existed
     * Could now freely send and receive commands from their server
 
